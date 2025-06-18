@@ -1,0 +1,45 @@
+---
+// src/components/Navigation.astro
+---
+<nav>
+    <div class="logo">
+        <a href="/">Mon Blog Astro</a>
+    </div>
+    <div class="nav-links">
+        <a href="/">Accueil</a>
+        <a href="/about/">À Propos</a> <!-- Même si la page n'existe pas encore -->
+        <a href="/">Articles</a>
+    </div>
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0; /* On retire le padding horizontal pour le centrer dans le layout */
+        border-bottom: 1px solid #eaeaea;
+        margin-bottom: 2rem;
+    }
+    .logo a {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-decoration: none;
+        color: #111;
+    }
+    .nav-links {
+        display: flex;
+        gap: 1.5rem; /* Espace entre les liens */
+    }
+    .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-size: 1rem;
+        padding: 0.5rem;
+        border-radius: 6px;
+    }
+    .nav-links a:hover,
+    .nav-links a[href="/"] { /* Style pour le lien actif ou survolé */
+        background-color: #f4f4f4;
+    }
+</style>

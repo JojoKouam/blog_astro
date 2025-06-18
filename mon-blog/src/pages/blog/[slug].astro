@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title}>
+	<article>
+        <!-- AFFICHER L'IMAGE DE L'ARTICLE -->
+        {post.data.image && (
+            <img src={post.data.image.url} alt={post.data.image.alt} class="hero-image"/>
+        )}
+
+		<h1>{post.data.title}</h1>
+		<p class="meta">Publié le {post.data.pubDate.toLocaleDateString('fr-FR')} par {post.data.author}</p>
+		<hr>
+		<Content />
+	</article>
+</Layout>
+
+<style>
+    .hero-image {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+    }
+	.meta {
+        color: #777;
+        font-style: italic;
+    }
+    hr {
+        border: none;
+        border-top: 1px solid #eaeaea;
+        margin: 2rem 0;
+    }
+</style>
